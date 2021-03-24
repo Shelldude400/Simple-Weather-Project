@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import weather from 'weather-js';
 import CurrentDisplay from './CurrentDisplay.jsx'
+import ForecastDisplay from './ForecastDisplay.jsx'
 
 const App = () => {
     
@@ -24,7 +25,10 @@ const App = () => {
 
     
     const closestResult = weatherResults[0]; //Weather.js returns multiple results, the closest result is stored in the first element of the array, which is stored in its own array
-    return <CurrentDisplay failedSearch={failedSearch} closestResult={closestResult} setDegreeType={setDegreeType} setLocation={setLocation}/>;
+    return <>
+        <CurrentDisplay failedSearch={failedSearch} closestResult={closestResult} setDegreeType={setDegreeType} setLocation={setLocation}/>
+        {!failedSearch && <ForecastDisplay closestResult={closestResult}/>}
+    </>;
 }
 
 export default App
