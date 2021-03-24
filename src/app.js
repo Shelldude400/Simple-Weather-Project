@@ -7,19 +7,24 @@ const App = () => {
     const [location, setLocation] = useState("Sydney, Australia");
     const [degreeType, setDegreeType ] = useState('C');
     const [weatherResults, setWeatherResults] = useState([[]]);
+    const [failedSearch, setFailedSearch] = useState('');
 
     useEffect(() => {
-        weather.find({search: location, degreeType: degreeType}, function(err, result) {
+        weather.find({search: location, degreeType: degreeType}, (err, result) => {
             if(err) console.log(err);
             // console.log(JSON.stringify(result, null, 2));
-            console.log(result[0].location)
-            setWeatherResults([result]);
+            if(result.length !== 0) {
+                setFailedSearch('');
+                setWeatherResults([result]);
+            } else {
+                setFailedSearch(`Failed to find location ${location}, please try a different location.`);
+            }
         });
     }, [location, degreeType])
 
-    const finalResult = weatherResults[0];
-    console.log(finalResult);
-    return <CurrentDisplay location={finalResult[0]?.location} current={finalResult[0]?.current} setDegreeType={setDegreeType} setLocation={setLocation}/>;
+    
+    const closestResult = weatherResults[0]; //Weather.js returns multiple results, the closest result is stored in the first element of the array, which is stored in its own array
+    return <CurrentDisplay failedSearch={failedSearch} closestResult={closestResult} setDegreeType={setDegreeType} setLocation={setLocation}/>;
 }
 
 export default App
