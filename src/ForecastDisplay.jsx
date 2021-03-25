@@ -3,12 +3,11 @@ import styled from 'styled-components';
 
 const ForecastDisplay = ({closestResult}) => {
     const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth; //Cross broswer compatible code
-    console.log(screenWidth, 'width')
     const fiveDayForecast = closestResult[0]?.forecast;
-    console.log(closestResult, 'closest')
-    console.log(fiveDayForecast, '5day')
+    const degreeType = closestResult[0]?.location.degreetype;
+    
     return <ForecastContainer>
-        {fiveDayForecast?.map((forecast, index) => <SingleDayForecast key={index} forecast={forecast} singleWidth={screenWidth}/>)}
+        {fiveDayForecast?.map(forecast => <SingleDayForecast key={forecast.shortday} forecast={forecast} width={screenWidth} degreeType={degreeType}/>)}
     </ForecastContainer>;
 }
 
@@ -17,21 +16,38 @@ const ForecastContainer = styled.div`
     padding: 20px 0px;
 `;
 
-const SingleDayForecast = ({forecast, singleWidth}) => {
-    return <SingleDayForecastContainer width={singleWidth}>
-
+const SingleDayForecast = ({forecast, width, degreeType}) => {
+    return <SingleDayForecastContainer width={width}>
+        <SingleDayHeading>{forecast.shortday}</SingleDayHeading>
+        <SingleDayText>{forecast.high}&deg;/{forecast.low}&deg;{degreeType}</SingleDayText>
+        <SingleDayText>{forecast.skytextday}</SingleDayText>
     </SingleDayForecastContainer>
 }
 
 
 const SingleDayForecastContainer = styled.div`
     display: flex;
-    flex-align: column;
+    flex-direction: column;
     border: 1px solid;
     border-radius: 5px;
     width: ${props => props.width}px;
-    height: 200px;
+    align-items: center;
     
+`;
+
+const SingleDayHeading = styled.div`
+    font-size: 16px;
+    font-family: Arial;
+    margin: 12px 0px;
+    text-align: center;
+    font-weight: 700;
+`;
+
+const SingleDayText = styled.div`
+    font-size: 16px;
+    font-family: Arial;
+    text-align: center;
+    margin: 12px 0px;
 `;
 
 export default ForecastDisplay;
