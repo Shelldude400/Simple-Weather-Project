@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Breakpoints from './Breakpoints.js';
 
 const ForecastDisplay = ({closestResult}) => {
     const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth; //Cross broswer compatible code
@@ -41,6 +42,9 @@ const SingleDayHeading = styled.div`
     margin: 12px 0px;
     text-align: center;
     font-weight: 700;
+    @media(min-width: ${Breakpoints.medium}) {
+        font-size: 24px;
+    }
 `;
 
 const SingleDayText = styled.div`
@@ -48,6 +52,9 @@ const SingleDayText = styled.div`
     font-family: Arial;
     text-align: center;
     margin: 12px 0px;
+    @media(min-width: ${Breakpoints.medium}) {
+        font-size: 24px;
+    }
 `;
 
 export default ForecastDisplay;

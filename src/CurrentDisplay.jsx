@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import Breakpoints from './Breakpoints.js'
 
 const CurrentDisplay = ({failedSearch, closestResult,setDegreeType, setLocation}) => {
     const [enteringLocation, setEnteringLocation] = useState(false);
@@ -35,13 +36,15 @@ const CurrentDisplayContainer = styled.div`
     flex-direction: column;
     border: 1px solid;
     border-radius: 5px;
-    max-width: 500px;
     justify-content: center;
 `;
 
 const LocationHeading = styled.h1`
     text-align: center;
     font-family: Arial;
+    @media(min-width: ${Breakpoints.medium}) {
+        font-size: 40px;
+    }
 `;
 
 const LocationButton = styled.a`
@@ -50,6 +53,9 @@ const LocationButton = styled.a`
     text-align: center;
     font-family: Arial;
     cursor: pointer;
+    @media(min-width: ${Breakpoints.medium}) {
+        font-size: 16px;
+    }
 `;
 
 const FailedSearch = ({msg, setEnteringLocation, setLocation}) => {
@@ -82,6 +88,9 @@ const EnterLocationInput = styled.input`
     font-family: Arial;
     margin-top: 24px;
     text-align: center;
+    @media(min-width: ${Breakpoints.medium}) {
+        font-size: 32px;
+    }
 `;
 
 const ImageCurrentTempContainer = styled.div`
@@ -95,10 +104,16 @@ const CurrentTempFont = styled.h2`
     padding-left: 12px;
     align-self: center;
     font-family: Arial;
+    @media(min-width: ${Breakpoints.medium}) {
+        font-size: 32px;
+    }
 `;
 
 const DegreeSelect = styled.select`
     font-size: 24px;
     border: none;
+    @media(min-width: ${Breakpoints.medium}) {
+        font-size: 32px;
+    }
 `;
 export default CurrentDisplay;
