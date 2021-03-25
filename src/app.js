@@ -12,7 +12,10 @@ const App = () => {
 
     useEffect(() => {
         weather.find({search: location, degreeType: degreeType}, (err, result) => {
-            if(err) console.log(err);
+            if(err){ 
+                console.log(err);
+                setFailedSearch(`An error occurred: ${err}. If the problem persists, please restart the application.`);
+            }
             // console.log(JSON.stringify(result, null, 2));
             if(result.length !== 0) {
                 setFailedSearch('');
