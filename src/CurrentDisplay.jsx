@@ -3,15 +3,17 @@ import styled from 'styled-components';
 
 const CurrentDisplay = ({failedSearch, closestResult,setDegreeType, setLocation}) => {
     const [enteringLocation, setEnteringLocation] = useState(false);
-    console.log(failedSearch, 'failedSearch')
-    if(failedSearch) {
+
+    if(failedSearch) { //If the search failed, we want to bail before any attempts to use info from the search
         return <FailedSearch msg={failedSearch} setEnteringLocation={setEnteringLocation} setLocation={setLocation}/>
     }
+
     const current = closestResult[0]?.current;
     const location = closestResult[0]?.location;
     if(!current || !location) {
         return <div>Retrieving weather info...</div>
     }
+
     return <CurrentDisplayContainer>
         {enteringLocation? <EnterLocationField setEnteringLocation={setEnteringLocation} setLocation={setLocation}/> : <><LocationHeading>Current weather in {location.name}</LocationHeading>
         <LocationButton onClick={() => setEnteringLocation(true)}>Change Location</LocationButton></>}
